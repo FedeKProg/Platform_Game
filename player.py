@@ -16,12 +16,12 @@ class Player():
 		self.index = 0
 		self.contador = 0
 		for frame in range(0,5):
-			walk_r = pygame.image.load(f"Clase_22/images/caracters/players/warrior_woman_01/2_WALK_00{frame}.png")
+			walk_r = pygame.image.load(f"Recursos/warrior_woman_01/2_WALK_00{frame}.png")
 			walk_r = pygame.transform.scale(walk_r,(80,80))
 			walk_l = pygame.transform.flip(walk_r,True,False)
 			self.walk_r_list.append(walk_r)
 			self.walk_l_list.append(walk_l)
-		self.death_image = pygame.image.load("Clase_22/images/caracters/players/warrior_woman_01/7_DIE_005.png")
+		self.death_image = pygame.image.load("Recursos/warrior_woman_01/7_DIE_005.png")
 		self.walk = self.walk_r_list[self.index]
 		self.rect = self.walk.get_rect()
 		self.rect.x = x

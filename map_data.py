@@ -14,8 +14,8 @@ class Level():
 
 		self.lista_items = []
 		#cargar imagenes
-		imagen_tierra_limites = pygame.image.load("Clase_22/images/tileset/forest/Tiles/10.png")
-		imagen_fondo_limite = pygame.image.load("Clase_22/images/tileset/forest/Tiles/2.png")
+		imagen_tierra_limites = pygame.image.load("Recursos/tile/4.png")
+		imagen_fondo_limite = pygame.image.load("Recursos/tile/0.png")
 
 		#ubicar imagenes en pantalla, guiandose con columnas y filas
 		contador_filas = 0
@@ -27,9 +27,6 @@ class Level():
 					limites_rect = limites.get_rect()
 					limites_rect.x = contador_columnas * item_size
 					limites_rect.y = contador_filas * item_size
-					# self.collition_rect = pygame.Rect(limites_rect)
-					# self.ground_collition_rect = pygame.Rect(limites_rect)
-					# self.ground_collition_rect.height = GROUND_COLLIDE_H
 					item = (limites,limites_rect)
 					self.lista_items.append(item)
 				if item == 2:
@@ -37,9 +34,6 @@ class Level():
 					img_rect = img.get_rect()
 					img_rect.x = contador_columnas * item_size
 					img_rect.y = contador_filas * item_size
-					# self.collition_rect = pygame.Rect(img_rect)
-					# self.ground_collition_rect = pygame.Rect(img_rect)
-					# self.ground_collition_rect.height = GROUND_COLLIDE_H
 					tile = (img, img_rect)
 					self.lista_items.append(tile)
 				if item == 3:
@@ -59,7 +53,7 @@ class Level():
 
 		
 
-	def draw_items(self):
+	def draw_items(self,screen):
 		for item in self.lista_items:
 			screen.blit(item[0], item[1])
 			#pygame.draw.rect(screen, (255,255,255), item[1], 2)

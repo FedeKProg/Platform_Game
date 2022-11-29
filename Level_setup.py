@@ -8,15 +8,15 @@ class MapCreator():
         self.level = level
         self.lista_map = [level]
         if level == 1:
-            self.map_data = self.CargarJson("practica_tp/nivel_1.json")
+            self.map_data = self.CargarJson("nivel_1.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_1_data"
         if level == 2:
-            self.map_data = self.CargarJson("practica_tp/nivel_2.json")
+            self.map_data = self.CargarJson("nivel_2.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_2_data"
         if level == 3:
-            self.map_data = self.CargarJson("practica_tp/nivel_3.json")
+            self.map_data = self.CargarJson("nivel_3.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_3_data"
 

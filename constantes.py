@@ -8,7 +8,7 @@ mixer.init()
 ANCHO_PANTALLA = 1000
 ALTO_PANTALLA = 800
 
-FPS=60
+FPS=30
 #tamaño de la imagen del item
 item_size = 40
 nivel = 1
@@ -24,18 +24,30 @@ fuente_game_over = pygame.font.SysFont("Comis Sans MS",150)
 
 
 #sonidos
-musica_moneda = pygame.mixer.Sound("practica_tp/Recursos/files/coin.wav")
+musica_moneda = pygame.mixer.Sound("Recursos/files/coin.wav")
 musica_moneda.set_volume(0.5)
-musica_salto = pygame.mixer.Sound("practica_tp/Recursos/files/jump.wav")
+musica_salto = pygame.mixer.Sound("Recursos/files/jump.wav")
 musica_salto.set_volume(0.5)
-musica_game_over= pygame.mixer.Sound("practica_tp/Recursos/files/game_over.wav")
+musica_game_over= pygame.mixer.Sound("Recursos/files/game_over.wav")
 musica_game_over.set_volume(0.5)
-pygame.mixer.music.load("practica_tp/Recursos/files/music.wav")
+pygame.mixer.music.load("Recursos/files/music.wav")
 pygame.mixer.music.play(0,0,4000)
 
 
 
+# mouse_encima = 0
+# M_BRIGHT_HOVER = 0
+# mouse_click = 1
+# M_BRIGHT_CLICK = 1
+# M_STATE_NORMAL = 0
 
+# pausa = 1
+# running = 2
+# menu_principal = 3
+# game_over = 4
+# reniniciar = 5
+# victoria = 6
+# continuar = 7
 
 
 #define colours

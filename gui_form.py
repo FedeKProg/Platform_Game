@@ -52,8 +52,8 @@ class FormMenu(Form):
 		super().__init__(name,master_surface,x,y,active,lvl)
 		#self.main_menu_ttl = 
 
-		self.start = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='START GAME',screen=master_surface,on_click=self.click_start,on_click_param="form_start_lvl",font_size=60)
-		self.option = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='SETTINGS',screen=master_surface,on_click=self.click_start,on_click_param="option_form",font_size=60)
+		self.start = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='START GAME',screen=master_surface,on_click=self.click_start,on_click_param="from_start_nivel",font_size=60)
+		self.option = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='SETTINGS',screen=master_surface,on_click=self.click_start,on_click_param="form_opciones",font_size=60)
 		self.lista_widget = [self.start,self.option]
 		
 
@@ -136,7 +136,7 @@ class FormOpciones(Form):
 
 		self.music_on = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
 		self.music_off = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Music OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
+		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
 		self.lista_widget = [self.music_off,self.music_on,self.volver]
 		
 
@@ -167,9 +167,9 @@ class FormPausa(Form):
 
 		self.music_on = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+100,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
 		self.music_off= Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Music OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
+		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
 
-		self.resume_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Game',screen=master_surface,on_click=self.click_resume,on_click_param="form_start_lvl",font_size=40)
+		self.resume_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Game',screen=master_surface,on_click=self.click_resume,on_click_param="from_start_nivel",font_size=40)
 		self.lista_widget = [self.music_off,self.music_on,self.volver,self.resume_btn]
 
 	

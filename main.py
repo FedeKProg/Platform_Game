@@ -45,7 +45,6 @@ while True:
 			sys.exit()
 		if event.type == pygame.KEYDOWN:
 			if(event.key == pygame.K_ESCAPE):
-				print("ESCAPE")
 				form_pausa.set_active("form_pausa")
 
 
@@ -61,9 +60,7 @@ while True:
 		grupo_puertas.draw(screen)
 		grupo_monedas.draw(screen)
 		grupo_enemigo.draw(screen)
-		score = 0
 		if pygame.sprite.spritecollide(jugador,grupo_monedas,True):
-			musica_moneda.play()
 			score += 10
 		escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
 	elif(form_opciones.active):

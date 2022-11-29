@@ -30,6 +30,7 @@ class Form():
 		self.grupo_enemigos = pygame.sprite.Group()
 		self.grupo_monedas = pygame.sprite.Group()
 		self.grupo_puertas = pygame.sprite.Group()
+		self.nivel = 0
 
 	#me activa el forms con el mismo nombre y desactiva los demas
 	def set_active(self,name):
@@ -37,11 +38,6 @@ class Form():
 			aux_form.active = False
 		self.forms_dict[name].active = True
 
-	# def render(self):
-	#     pass
-
-	# def update(self,lista_eventos):
-	#     pass
 
 	def draw(self):
 		self.master_surface.blit(self.surface,self.slave_rect)
@@ -87,6 +83,7 @@ class FormNivelStart(Form):
 		self.grupo_enemigo = pygame.sprite.Group()
 		self.image = pygame.image.load("Recursos/files/blob.png")
 		#MONEDAS
+		self.score = 0
 		self.grupo_monedas = pygame.sprite.Group()
 		self.imagen_moneda = pygame.image.load("Recursos/files/coin.png")
 		#PLAYER
@@ -125,6 +122,8 @@ class FormNivelStart(Form):
 		self.grupo_monedas.draw(screen)
 		self.grupo_enemigo.draw(screen)
 		self.jugador.draw()
+		if pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
+			self.score += 10		
 
 
 
@@ -140,10 +139,10 @@ class FormOpciones(Form):
 		self.lista_widget = [self.music_off,self.music_on,self.volver]
 		
 
-	def click_music_on(self, parametro):
+	def click_music_on(self,paramentro):
 		pygame.mixer.music.unpause()
 
-	def click_music_off(self, parametro):
+	def click_music_off(self,parametro):
 		pygame.mixer.music.pause()
 
 	def click_back(self,parametro):

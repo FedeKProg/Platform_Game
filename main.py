@@ -30,10 +30,10 @@ clock = pygame.time.Clock()
 # level = Level(seteo.get_items())
 #boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
 jugador = Player(50,670)
-menu_form = FormMenu(name="menu_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
-option_form = FormOpciones(name="option_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_start_lvl = FormNivelStart(name="form_start_lvl",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_pause = FormPausa(name="form_pause",master_surface=screen,x=0,y=0,active=True,lvl=1)
+main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
+form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,lvl=1)
+from_start_nivel = FormNivelStart(name="from_start_nivel",master_surface=screen,x=0,y=0,active=True,lvl=1)
+form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,lvl=1)
 
 
 while True:     
@@ -46,17 +46,17 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			if(event.key == pygame.K_ESCAPE):
 				print("ESCAPE")
-				form_pause.set_active("form_pause")
+				form_pausa.set_active("form_pausa")
 
 
 	keys = pygame.key.get_pressed()
 
-	if(menu_form.active):
-		menu_form.update(lista_eventos)
-		menu_form.draw()
-	elif(form_start_lvl.active):
-		form_start_lvl.update()
-		form_start_lvl.draw()
+	if(main_menu_form.active):
+		main_menu_form.update(lista_eventos)
+		main_menu_form.draw()
+	elif(from_start_nivel.active):
+		from_start_nivel.update()
+		from_start_nivel.draw()
 		level.draw_items(screen)
 		grupo_puertas.draw(screen)
 		grupo_monedas.draw(screen)
@@ -66,12 +66,12 @@ while True:
 			musica_moneda.play()
 			score += 10
 		escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
-	elif(option_form.active):
-		option_form.update(keys)
-		option_form.draw()
-	elif(form_pause.active):
-		form_pause.update(keys)
-		form_pause.draw()
+	elif(form_opciones.active):
+		form_opciones.update(keys)
+		form_opciones.draw()
+	elif(form_pausa.active):
+		form_pausa.update(keys)
+		form_pausa.draw()
 
 
 	# screen.blit(imagen_fondo,(0,0))

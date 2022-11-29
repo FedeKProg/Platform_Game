@@ -52,9 +52,9 @@ class FormMenu(Form):
 		super().__init__(name,master_surface,x,y,active,lvl)
 		#self.main_menu_ttl = 
 
-		self.start_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='START GAME',screen=master_surface,on_click=self.click_start,on_click_param="form_start_lvl",font_size=60)
-		self.option_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='SETTINGS',screen=master_surface,on_click=self.click_start,on_click_param="option_form",font_size=60)
-		self.lista_widget = [self.start_btn,self.option_btn]
+		self.start = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='START GAME',screen=master_surface,on_click=self.click_start,on_click_param="form_start_lvl",font_size=60)
+		self.option = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='SETTINGS',screen=master_surface,on_click=self.click_start,on_click_param="option_form",font_size=60)
+		self.lista_widget = [self.start,self.option]
 		
 
 	def click_options(self, parametro):
@@ -74,14 +74,13 @@ class FormMenu(Form):
 			aux_boton.draw()
 
 
-class FormLvlStart(Form):
+class FormNivelStart(Form):
 	def __init__(self,name,master_surface,x,y,active,lvl):
 		super().__init__(name,master_surface,x,y,active,lvl)
 		self.screen = master_surface
 		self.seteo = MapCreator(1)
 		self.level = Level(self.seteo.get_items())
 		self.clock = pygame.time.Clock()
-		#al ser propiedad no lleva parentesis get_lvl_image
 		self.imagen_fondo = pygame.image.load("Recursos/Background/Green.png").convert_alpha()
 		self.imagen_fondo = pygame.transform.scale(self.imagen_fondo,(ANCHO_PANTALLA,ALTO_PANTALLA))
 		#ENEMIGOS
@@ -95,8 +94,7 @@ class FormLvlStart(Form):
 		#PUERTAS
 		self.grupo_puertas = pygame.sprite.Group()
 		self.imagen_puerta = pygame.image.load("Recursos/files/exit.png")
-		self.imagen_reinicio = pygame.image.load("Recursos/files/restart_btn.png")
-		self.boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, self.imagen_reinicio)
+
 
 	def update(self):
 		self.game_over = 0 
@@ -130,7 +128,7 @@ class FormLvlStart(Form):
 
 
 
-class FormOptions(Form):
+class FormOpciones(Form):
 	def __init__(self,name,master_surface,x,y,active,lvl):
 		super().__init__(name,master_surface,x,y,active,lvl)
 
@@ -138,8 +136,8 @@ class FormOptions(Form):
 
 		self.music_on = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
 		self.music_off = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Music OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.back_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Volver al menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
-		self.lista_widget = [self.music_off,self.music_on,self.back_btn]
+		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
+		self.lista_widget = [self.music_off,self.music_on,self.volver]
 		
 
 	def click_music_on(self, parametro):
@@ -161,18 +159,18 @@ class FormOptions(Form):
 		for aux_boton in self.lista_widget:    
 			aux_boton.draw()
 
-class FormPause(Form):
+class FormPausa(Form):
 	def __init__(self,name,master_surface,x,y,active,lvl):
 		super().__init__(name,master_surface,x,y,active,lvl)
 
 	#self.main_menu_ttl = 
 
-		self.music_on_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+100,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
-		self.music_off_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Music OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.back_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Volver al menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
+		self.music_on = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+100,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
+		self.music_off= Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Music OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
+		self.volver = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Back to Menu',screen=master_surface,on_click=self.click_back,on_click_param="menu_form",font_size=40)
 
-		self.resume_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Volver al juego',screen=master_surface,on_click=self.click_resume,on_click_param="form_start_lvl",font_size=40)
-		self.lista_widget = [self.music_off_btn,self.music_on_btn,self.back_btn,self.resume_btn]
+		self.resume_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Back to Game',screen=master_surface,on_click=self.click_resume,on_click_param="form_start_lvl",font_size=40)
+		self.lista_widget = [self.music_off,self.music_on,self.volver,self.resume_btn]
 
 	
 	def click_resume(self,parametro):

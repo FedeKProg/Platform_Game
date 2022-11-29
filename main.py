@@ -21,19 +21,19 @@ clock = pygame.time.Clock()
 #setear imagenes del juego
 # imagen_fondo = pygame.image.load("Recursos/Background/Green.png")
 # imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_PANTALLA,ALTO_PANTALLA))
-imagen_reinicio = pygame.image.load("Recursos/files/restart_btn.png")
+# imagen_reinicio = pygame.image.load("Recursos/files/restart_btn.png")
 # imagen_inicio = pygame.image.load("Recursos/start_btn.png") 
 # imagen_salir = pygame.image.load("Recursos/exit_btn.png")
 
 #setear elementos
 # seteo = MapCreator(1)
 # level = Level(seteo.get_items())
-boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
+#boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
 jugador = Player(50,670)
 menu_form = FormMenu(name="menu_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
-option_form = FormOptions(name="option_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_start_lvl = FormLvlStart(name="form_start_lvl",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_pause = FormPause(name="form_pause",master_surface=screen,x=0,y=0,active=True,lvl=1)
+option_form = FormOpciones(name="option_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
+form_start_lvl = FormNivelStart(name="form_start_lvl",master_surface=screen,x=0,y=0,active=True,lvl=1)
+form_pause = FormPausa(name="form_pause",master_surface=screen,x=0,y=0,active=True,lvl=1)
 
 
 while True:     

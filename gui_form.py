@@ -103,7 +103,7 @@ class FormNivelStart(Form):
 				#agregar musica
 				musica_game_over.play()
 				self.game_over = -1
-			if pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
+			elif pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
 				musica_moneda.play()
 				self.score += 10
 				escribir("SCORE:" + str(self.score),fuente_score,white,item_size-10,10)
@@ -123,7 +123,8 @@ class FormNivelStart(Form):
 		self.grupo_enemigo.draw(screen)
 		self.jugador.draw()
 		if pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
-			self.score += 10		
+			self.score += 10	
+			musica_moneda.play()	
 
 
 

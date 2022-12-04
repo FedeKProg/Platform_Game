@@ -61,6 +61,7 @@ while True:
 		grupo_monedas.draw(screen)
 		grupo_enemigo.draw(screen)
 		if pygame.sprite.spritecollide(jugador,grupo_monedas,True):
+			musica_moneda.play()
 			score += 10
 		escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
 	elif(form_opciones.active):

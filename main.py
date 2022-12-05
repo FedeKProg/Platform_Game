@@ -17,6 +17,7 @@ pygame.font.init()
 screen = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
 pygame.display.set_caption("El juego de Fede")
 clock = pygame.time.Clock()
+# nivel = level
 
 #setear imagenes del juego
 # imagen_fondo = pygame.image.load("Recursos/Background/Green.png")
@@ -26,17 +27,18 @@ clock = pygame.time.Clock()
 # imagen_salir = pygame.image.load("Recursos/exit_btn.png")
 
 #setear elementos
-# seteo = MapCreator(1)
+# seteo = MapCreator(nivel)
 # level = Level(seteo.get_items())
 #boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
+nivel = 3
 jugador = Player(50,670)
-main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
-form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
 form_start_nivel = FormNivelStart(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
-form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
-form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
-form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
 
 
 
@@ -51,7 +53,6 @@ while True:
 			if(event.key == pygame.K_ESCAPE):
 				form_pausa.set_active("form_pausa")
 
-
 	keys = pygame.key.get_pressed()
 
 	if(main_menu_form.active):
@@ -60,14 +61,9 @@ while True:
 	elif(form_start_nivel.active):
 		form_start_nivel.update()
 		form_start_nivel.draw()
-		level.draw_items(screen)
-		grupo_puertas.draw(screen)
-		grupo_monedas.draw(screen)
-		grupo_enemigo.draw(screen)
-		if pygame.sprite.spritecollide(jugador,grupo_monedas,True):
-			musica_moneda.play()
-			score += 10
-		escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
+		tiempo = pygame.time.get_ticks()/1000
+		escribir("TIEMPO: " + str(tiempo),fuente_score,white,item_size+700,10)
+		#escribir("SCORE:" + str(puntos),fuente_score,white,item_size-10,10)
 	elif(form_opciones.active):
 		form_opciones.update(keys)
 		form_opciones.draw()
@@ -77,7 +73,7 @@ while True:
 	elif(form_death.active):
 		form_death.update(lista_eventos)
 		form_death.draw()
-	elif(form_win.active):
+	elif (form_win.active):
 		form_win.update(lista_eventos)
 		form_win.draw()
 	elif(form_seleccion_nivel.active):

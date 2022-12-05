@@ -9,9 +9,6 @@ class Widget:
 
         self.x = x
         self.y = y
-        
-    # def update(self):
-    #     pass
 
     def draw(self):
         self.screen.blit(self.text_image,self.rect)

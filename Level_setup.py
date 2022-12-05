@@ -6,19 +6,19 @@ from map_data import *
 class MapCreator():
     def __init__(self,nivel):
         self.nivel = nivel
-        self.lista_map = [nivel]
         if nivel == 1:
             self.map_data = self.CargarJson("nivel_1.json")
-            self.lista_map.append(self.map_data)
+            # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_1_data"
         if nivel == 2:
             self.map_data = self.CargarJson("nivel_2.json")
-            self.lista_map.append(self.map_data)
+            # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_2_data"
         if nivel == 3:
             self.map_data = self.CargarJson("nivel_3.json")
-            self.lista_map.append(self.map_data)
+            # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_3_data"
+        
 
     def CargarJson(self,file):
         with open(file, 'r') as archivo:

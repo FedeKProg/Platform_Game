@@ -8,7 +8,7 @@ class Button(Widget):
         super().__init__(x,y,text,screen,font_size)
         pygame.font.init()
         self.font = pygame.font.Font(r"Dungeon Quests Italic.otf",self.font_size)
-        self.text_image = self.font.render(self.text,True,(255,255,0))
+        self.text_image = self.font.render(self.text,True,(255,0,0))
         self.rect = self.text_image.get_rect()
         self.rect.center = (x,y)
         #self.on_click_sound = pygame.mixer.Sound()

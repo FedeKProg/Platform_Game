@@ -4,8 +4,9 @@ from auxiliar import Auxiliar
 from map_data import *
 from Level_setup import *
 
-seteo = MapCreator(1)
-level = Level(seteo.get_items())
+
+# seteo = MapCreator(nivel)
+# level = Level(seteo.get_items())
 pygame.mixer.pre_init()
 
 
@@ -33,25 +34,25 @@ class Player():
 		self.direccion = 0
 		self.on_platform = True
 
-	def update(self,game_over):
+	def update(self,game_over,lista_items):
 		updt_x = 0
 		updt_y = 0
-		animation_cooldown = 5
+		animation_cooldown = 10
 		#acciones y movimientos del personaje
 		if game_over == 0:
 			key = pygame.key.get_pressed()
 			if key[pygame.K_LEFT]:
-				updt_x -= 4
+				updt_x -= 2
 				self.contador += 1
 				self.direccion = -1
 			if key[pygame.K_RIGHT]:
-				updt_x += 4
+				updt_x += 2
 				self.contador += 1
 				self.direccion = 1
 			if key[pygame.K_SPACE] and self.jump == False and self.on_platform==True:
 				#agrega musica
 				musica_salto.play()
-				self.jump_speed = -17
+				self.jump_speed = -18
 				self.jump = True
 			if key[pygame.K_SPACE] == False:
 				self.jump = False
@@ -75,15 +76,15 @@ class Player():
 					self.walk = self.walk_l_list[self.index]
 
 			#manejar gravedad
-			self.jump_speed += 1
-			if self.jump_speed > 10:
-				self.jump_speed = 10
+			self.jump_speed += 1   
+			if self.jump_speed > 5:
+				self.jump_speed = 5
 
 			updt_y += self.jump_speed
 
 			#chequear colisiones
 			self.on_platform = False
-			for item in level.lista_items:
+			for item in lista_items:
 				if item[1].colliderect(self.rect.x + updt_x, self.rect.y, self.ancho, self.alto):
 					updt_x = 0
 				if item[1].colliderect(self.rect.x, self.rect.y + updt_y, self.ancho,self.alto):
@@ -114,6 +115,12 @@ class Player():
 			if self.rect.y > 200:
 				self.rect.y += 5
 		return game_over
+
+	# def score_jugador(self):
+	# 	self.score = 0
+	# 	if pygame.sprite.spritecollide(self,grupo_monedas,True):
+	# 		self.score +=10
+	# 	escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
 
 	def reset(self,x,y):
 		#para resetear el jugador despues del game over

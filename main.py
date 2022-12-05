@@ -30,10 +30,14 @@ clock = pygame.time.Clock()
 # level = Level(seteo.get_items())
 #boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
 jugador = Player(50,670)
-main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,lvl=1)
-from_start_nivel = FormNivelStart(name="from_start_nivel",master_surface=screen,x=0,y=0,active=True,lvl=1)
-form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,lvl=1)
+main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_start_nivel = FormNivelStart(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,lvl=nivel)
+
 
 
 while True:     
@@ -53,9 +57,9 @@ while True:
 	if(main_menu_form.active):
 		main_menu_form.update(lista_eventos)
 		main_menu_form.draw()
-	elif(from_start_nivel.active):
-		from_start_nivel.update()
-		from_start_nivel.draw()
+	elif(form_start_nivel.active):
+		form_start_nivel.update()
+		form_start_nivel.draw()
 		level.draw_items(screen)
 		grupo_puertas.draw(screen)
 		grupo_monedas.draw(screen)
@@ -70,6 +74,19 @@ while True:
 	elif(form_pausa.active):
 		form_pausa.update(keys)
 		form_pausa.draw()
+	elif(form_death.active):
+		form_death.update(lista_eventos)
+		form_death.draw()
+	elif(form_win.active):
+		form_win.update(lista_eventos)
+		form_win.draw()
+	elif(form_seleccion_nivel.active):
+		form_seleccion_nivel.update(lista_eventos)
+		form_seleccion_nivel.draw()
+		if(form_seleccion_nivel.is_selected):
+			nivel = form_seleccion_nivel.selected_lvl
+			form_seleccion_nivel.is_selected = False
+			form_start_nivel = FormNivelStart(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
 
 
 	# screen.blit(imagen_fondo,(0,0))
@@ -103,5 +120,5 @@ while True:
 
 
 	
-	pygame.display.update()
+	pygame.display.flip()
 pygame.quit()

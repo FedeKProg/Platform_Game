@@ -4,18 +4,18 @@ from map_data import *
 
 
 class MapCreator():
-    def __init__(self,level):
-        self.level = level
-        self.lista_map = [level]
-        if level == 1:
+    def __init__(self,nivel):
+        self.nivel = nivel
+        self.lista_map = [nivel]
+        if nivel == 1:
             self.map_data = self.CargarJson("nivel_1.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_1_data"
-        if level == 2:
+        if nivel == 2:
             self.map_data = self.CargarJson("nivel_2.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_2_data"
-        if level == 3:
+        if nivel == 3:
             self.map_data = self.CargarJson("nivel_3.json")
             self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_3_data"

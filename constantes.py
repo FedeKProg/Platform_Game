@@ -32,6 +32,8 @@ musica_game_over= pygame.mixer.Sound("Recursos/files/game_over.wav")
 musica_game_over.set_volume(0.5)
 pygame.mixer.music.load("Recursos/files/music.wav")
 pygame.mixer.music.play(0,0,4000)
+click_sound = pygame.mixer.Sound(r'Recursos/mixkit-select-click-1109.wav')
+click_sound.set_volume(0.2)
 
 
 

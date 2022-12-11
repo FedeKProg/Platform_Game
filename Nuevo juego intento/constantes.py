@@ -14,12 +14,13 @@ item_size = 40
 
 game_over = 0
 menu_principal = True
-# shoot = False
+shoot = False
 max_niveles = 3
-vidas = 5
+scale = 3
+
 fuente_score = pygame.font.SysFont("Futura", 40)
 fuente_game_over = pygame.font.SysFont("Comis Sans MS",150)
-SEGUNDO = 1000
+
 
 
 
@@ -42,7 +43,6 @@ grupo_enemigo = pygame.sprite.Group()
 grupo_monedas = pygame.sprite.Group()
 grupo_puertas = pygame.sprite.Group()
 grupo_balas = pygame.sprite.Group() 
-grupo_trampas = pygame.sprite.Group() 
 
 
 #define colours

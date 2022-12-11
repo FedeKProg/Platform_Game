@@ -5,9 +5,6 @@ from interacciones import *
 
 
 screen = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
-grupo_enemigo = pygame.sprite.Group()
-grupo_monedas = pygame.sprite.Group()
-grupo_puertas = pygame.sprite.Group()
 
 class Level():
 	def __init__(self, data):
@@ -48,6 +45,10 @@ class Level():
 					#agregar puertaa en el mapa
 					puerta = Puerta(contador_columnas*item_size,contador_filas*item_size - (item_size/2))
 					grupo_puertas.add(puerta)
+				if item == 6:
+					#agregar puertaa en el mapa
+					trampa = Trampa(contador_columnas*item_size + (item_size/2),contador_filas*item_size + (item_size/2))
+					grupo_trampas.add(trampa)
 				contador_columnas += 1
 			contador_filas += 1
 

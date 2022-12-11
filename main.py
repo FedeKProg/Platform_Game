@@ -30,17 +30,29 @@ clock = pygame.time.Clock()
 # seteo = MapCreator(nivel)
 # level = Level(seteo.get_items())
 #boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
-nivel = 3
+
 jugador = Player(50,670)
-main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_start_nivel = FormNivelStart(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
-form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
+main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True)
+form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True)
+form_start_nivel = FormNivelStart(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=1)
+# form_start_nivel_2 = FormNivelStart2(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=2)
+# form_start_nivel_3 = FormNivelStart3(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=3)
+form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True)
+form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True)
+form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True)
+form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True)
 
 
+# atacar enemigo []
+# sumar al score [x]
+#agregar vidas a personaje [x]
+#movimiento random enemigo []
+#agregar trampas, sacan vida []
+#setear nivel desde los forms, y setear los niveles en 1 al comenzar [x]
+#ranking, base de datos []
+#pausar tiempo en la pausa y resetear [x]
+
+#para solucinar lo de los niveles, crear un forms para cada nivel, llamarlos y setearlos en donde corresponda
 
 while True:     
 
@@ -59,11 +71,9 @@ while True:
 		main_menu_form.update(lista_eventos)
 		main_menu_form.draw()
 	elif(form_start_nivel.active):
+		# reseteo_grupos()
 		form_start_nivel.update()
 		form_start_nivel.draw()
-		tiempo = pygame.time.get_ticks()/1000
-		escribir("TIEMPO: " + str(tiempo),fuente_score,white,item_size+700,10)
-		#escribir("SCORE:" + str(puntos),fuente_score,white,item_size-10,10)
 	elif(form_opciones.active):
 		form_opciones.update(keys)
 		form_opciones.draw()

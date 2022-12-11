@@ -6,18 +6,22 @@ from map_data import *
 class MapCreator():
     def __init__(self,nivel):
         self.nivel = nivel
+        self.timer_nivel = 0
         if nivel == 1:
             self.map_data = self.CargarJson("nivel_1.json")
             # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_1_data"
+            self.timer_nivel = 30
         if nivel == 2:
             self.map_data = self.CargarJson("nivel_2.json")
             # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_2_data"
+            self.timer_nivel = 60
         if nivel == 3:
             self.map_data = self.CargarJson("nivel_3.json")
             # self.lista_map.append(self.map_data)
             self.nivel_mapa = "level_3_data"
+            self.timer_nivel = 90
         
 
     def CargarJson(self,file):
@@ -34,6 +38,13 @@ class MapCreator():
             self.map_list.append(item)
 
         return self.map_list
+
+    def get_timer_sec(self):
+        return self.timer_nivel
+        
+    # def vaciar_lista(self):
+    #     self.map_list.clear()
+    #     return self.map_list
         
 
 # level_1_data = [

@@ -12,15 +12,20 @@ class Enemy(pygame.sprite.Sprite):
 		self.rect.y = y
 		self.direccion = 1
 		self.contador_movimiento = 0
+		self.head_collition_rect = pygame.Rect(self.rect.x + self.rect.w / 4.5, self.rect.y-5,self.rect.w/1.8,self.rect.h/5)
+		
 
 	def update(self):
 		
 		#setear movimiento enemigo
 		self.rect.x += self.direccion
 		self.contador_movimiento += 1
-		if abs(self.contador_movimiento) > 40:
+		if abs(self.contador_movimiento) > 50:
 			self.direccion *= -1
 			self.contador_movimiento *= -1
+	def draw(self):
+		pygame.draw.rect(screen,(255,255,255),self.rect,2)
+	
 
 
 

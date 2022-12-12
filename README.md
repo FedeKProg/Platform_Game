@@ -35,6 +35,9 @@ You can proceed on helping me on this project, by dowloading the files, and help
 **BUGS OR CORRECTIONS**
 As far as i can notice, the only bug, is to be able to make more accurate the hitbox and collitons of the player and items of the level, in order to have a more accorate collision. And also, the player movement can be improved.
 
+**LINK OF THE GAME PREVIEW**
+https://drive.google.com/file/d/1m5R8sM-bsZ7I73gjVGXRVizmT9PCV4gh/view?usp=sharing
+
 **THIS PROJECT IS ENTIRELY MADE BY MYSELF, WITH THE HELP OF DIFFERENT DOCUMENTATION AND CLASS INFORMATION PROVIDED AT MY UNIVERSITY**
 
 <h3 align="left">Connect with me:</h3>

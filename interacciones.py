@@ -16,7 +16,7 @@ class Trampa(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
 		imagen_trampa = pygame.image.load("Recursos/Traps/Spikes/Idle.png")
-		self.image=pygame.transform.scale(imagen_trampa,(item_size/1,item_size/1))
+		self.image=pygame.transform.scale(imagen_trampa,(item_size/1.2,item_size/1.2))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x,y)
 		

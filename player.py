@@ -16,7 +16,7 @@ class Player():
 		self.index = 0
 		self.vidas = 5
 		self.contador = 0
-		self.contador_attack = 0
+		#self.contador_attack = 0
 		#lista animacion de caminata
 		for frame in range(0,5):
 			walk_r = pygame.image.load(f"Recursos/warrior_woman_01/2_WALK_00{frame}.png")
@@ -46,7 +46,7 @@ class Player():
 		# self.alto_attack = self.attack.get_height()
 		self.jump_speed = 0
 		self.jump = False
-		self.shoot= False
+		#self.shoot= False
 		self.shoot_cooldown = 0
 		self.direccion = 0
 		self.on_platform = True
@@ -60,7 +60,7 @@ class Player():
 		if game_over == 0:
 			key = pygame.key.get_pressed()
 			if key[pygame.K_LEFT]:
-				updt_x -= 0.5
+				updt_x -= 2
 				self.contador += 1
 				self.direccion = -1
 			if key[pygame.K_RIGHT]:
@@ -77,7 +77,7 @@ class Player():
 			if key[pygame.K_SPACE] and self.jump == False and self.on_platform==True:
 				#agrega musica
 				musica_salto.play()
-				self.jump_speed = -17
+				self.jump_speed = -18
 				self.jump = True
 			if key[pygame.K_SPACE] == False:
 				self.jump = False

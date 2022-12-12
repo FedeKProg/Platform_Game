@@ -47,7 +47,7 @@ form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=
 # sumar al score [x]
 #agregar vidas a personaje [x]
 #movimiento random enemigo []
-#agregar trampas, sacan vida []
+#agregar trampas, sacan vida [x]
 #setear nivel desde los forms, y setear los niveles en 1 al comenzar [x]
 #ranking, base de datos []
 #pausar tiempo en la pausa y resetear [x]

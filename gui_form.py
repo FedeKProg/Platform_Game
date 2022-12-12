@@ -131,6 +131,7 @@ class FormNivelStart(Form):
 				musica_game_over.play()
 				self.vidas -= 1
 				self.jugador.reset(50,670)
+				grupo_monedas.draw(screen)
 			if self.vidas == 0 or self.nivel_timer == 0:
 					self.game_over = -1
 					self.set_active("form_death")

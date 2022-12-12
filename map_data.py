@@ -47,7 +47,7 @@ class Level():
 					grupo_puertas.add(puerta)
 				if item == 6:
 					#agregar puertaa en el mapa
-					trampa = Trampa(contador_columnas*item_size + (item_size/2),contador_filas*item_size + (item_size/2))
+					trampa = Trampa(contador_columnas*item_size + (item_size/2),contador_filas*item_size + (item_size/1.7))
 					grupo_trampas.add(trampa)
 				contador_columnas += 1
 			contador_filas += 1

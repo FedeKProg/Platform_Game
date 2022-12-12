@@ -5,6 +5,10 @@ from map_data import *
 
 class MapCreator():
     def __init__(self,nivel):
+        '''
+        So proceder a cargar los niveles guardados en archivos json. 
+        Dependiendo del numero del nivel, se abre y utiliza el archivo correspondiente al mismo.
+        '''
         self.nivel = nivel
         self.timer_nivel = 0
         if nivel == 1:
@@ -25,12 +29,17 @@ class MapCreator():
         
 
     def CargarJson(self,file):
+        '''
+        Funcion para cargar y leer los archivos json.
+        '''
         with open(file, 'r') as archivo:
             self.map_data = json.load(archivo)
         return self.map_data
 
     def get_items(self):
-
+        '''
+        Funcion para obtener y listar los items del juego, para luego ser procesados y ejecutados en el juego.
+        '''
         map_list_dic = self.map_data[self.nivel_mapa]
         self.map_list = []
         for items in map_list_dic:
@@ -40,6 +49,9 @@ class MapCreator():
         return self.map_list
 
     def get_timer_sec(self):
+        '''
+        Funcion para obtener el tiempo del juego.
+        '''
         return self.timer_nivel
         
     # def vaciar_lista(self):

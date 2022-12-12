@@ -31,6 +31,9 @@ clock = pygame.time.Clock()
 # level = Level(seteo.get_items())
 #boton_reinicio = Boton(ANCHO_PANTALLA//2 - 80, ALTO_PANTALLA // 2 +100, imagen_reinicio)
 
+'''
+Seteo y llamado de las distintas clases para poder usadas dentro del bucle del juego. Se le aplican los datos necesarios, con los aspectos a ser usados dentro del juego.
+'''
 jugador = Player(50,670)
 main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True)
 form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True)
@@ -46,16 +49,15 @@ form_seleccion_nivel = FormLvlSelect(name="form_seleccion_nivel",master_surface=
 # atacar enemigo []
 # sumar al score [x]
 #agregar vidas a personaje [x]
-#movimiento random enemigo []
 #agregar trampas, sacan vida [x]
 #setear nivel desde los forms, y setear los niveles en 1 al comenzar [x]
 #ranking, base de datos []
 #pausar tiempo en la pausa y resetear [x]
 
-#para solucinar lo de los niveles, crear un forms para cada nivel, llamarlos y setearlos en donde corresponda
-
 while True:     
-
+	'''
+	Bucle dentro del cual corremos el juego, y llamamos y aplicamos las funciones creadas para el correcto desattollo del mismo.
+	'''
 	lista_eventos = pygame.event.get()
 	for event in lista_eventos:
 		if event.type == pygame.QUIT:
@@ -71,7 +73,6 @@ while True:
 		main_menu_form.update(lista_eventos)
 		main_menu_form.draw()
 	elif(form_start_nivel.active):
-		# reseteo_grupos()
 		form_start_nivel.update()
 		form_start_nivel.draw()
 	elif(form_opciones.active):
@@ -94,37 +95,5 @@ while True:
 			form_seleccion_nivel.is_selected = False
 			form_start_nivel = FormNivelStart(name="form_seleccion_nivel",master_surface=screen,x=0,y=0,active=True,nivel=nivel)
 
-
-	# screen.blit(imagen_fondo,(0,0))
-	# if menu_principal == True:
-	# 	if boton_salir.draw():
-	# 		run = False
-	# 	if boton_inicio.draw():
-	# 		menu_principal = False
-	# else:
-	# 	level.draw_items()
-	# 	grupo_puertas.draw(screen)
-	# 	grupo_monedas.draw(screen)
-	# 	grupo_enemigo.draw(screen)
-	# 	if game_over == 0:
-	# 		grupo_enemigo.update()
-	# 		#updatear score
-	# 		if pygame.sprite.spritecollide(jugador,grupo_monedas,True):
-	# 			musica_moneda.play()
-	# 			score += 10
-	# 		escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
-	# 	jugador.draw()
-	# 	game_over = jugador.update(game_over)
-
-	# 	if game_over==-1:
-	# 		escribir("GAME OVER",fuente_game_over,black,(ANCHO_PANTALLA/2)-330,ALTO_PANTALLA/2)
-	# 		if boton_reinicio.draw():
-	# 			jugador.reset(50,670)
-	# 			#grupo_monedas.draw(screen)
-	# 			game_over = 0
-	# 			score = 0
-
-
-	
 	pygame.display.flip()
 pygame.quit()

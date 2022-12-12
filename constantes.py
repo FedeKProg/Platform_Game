@@ -18,7 +18,7 @@ menu_principal = True
 max_niveles = 3
 vidas = 5
 fuente_score = pygame.font.SysFont("Futura", 40)
-fuente_game_over = pygame.font.SysFont("Comis Sans MS",150)
+fuente_game_over = pygame.font.SysFont("Futura",150)
 SEGUNDO = 1000
 
 
@@ -38,6 +38,7 @@ click_sound.set_volume(0.2)
 win_sound = pygame.mixer.Sound(r'Recursos\success-fanfare-trumpets-6185.wav')
 win_sound.set_volume(0.6)
 
+#Se setean los distintos grupos de elementos del juego
 grupo_enemigo = pygame.sprite.Group()
 grupo_monedas = pygame.sprite.Group()
 grupo_puertas = pygame.sprite.Group()

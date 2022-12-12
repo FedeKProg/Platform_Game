@@ -4,6 +4,10 @@ from constantes import *
 screen = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
 
 class Enemy(pygame.sprite.Sprite):
+	'''
+	se crea el enemigo, y las caracteristicas del mismo, asi como la hitbox de la imagen
+	Recibe como parametro la ubicacion del mismo 
+	'''
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = pygame.image.load("Recursos/files/blob.png")
@@ -12,11 +16,13 @@ class Enemy(pygame.sprite.Sprite):
 		self.rect.y = y
 		self.direccion = 1
 		self.contador_movimiento = 0
-		self.head_collition_rect = pygame.Rect(self.rect.x + self.rect.w / 4.5, self.rect.y-5,self.rect.w/1.8,self.rect.h/5)
+		#self.head_collition_rect = pygame.Rect(self.rect.x + self.rect.w / 4.5, self.rect.y-5,self.rect.w/1.8,self.rect.h/5)
 		
 
 	def update(self):
-		
+		'''
+		Se setean el movimiento predefinido del enemigo dentro del juego
+		'''
 		#setear movimiento enemigo
 		self.rect.x += self.direccion
 		self.contador_movimiento += 1

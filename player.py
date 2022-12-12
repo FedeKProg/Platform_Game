@@ -9,6 +9,11 @@ pygame.mixer.pre_init()
 
 class Player():
 	def __init__(self,x,y):
+		'''
+		Se setea la imagen y la animacion del personaje en cuestion.
+		Se setean los valores iniciales del personaje, y la hitbox del mismo, basandonos en la imagen en cuestion.
+		Recibe como parametro la ubicaion del personaje dentro del juego.
+		'''
 		self.walk_r_list = []
 		self.walk_l_list = []
 		self.attack_r_list = []
@@ -52,6 +57,12 @@ class Player():
 		self.on_platform = True
 
 	def update(self,game_over,lista_items):
+		'''
+		Con esta funcion controlamos las acciones del personaje, teniendo en cuenta las teclas apretadas, y sus consecuentes acciones.
+		A su vez, controlamos la animacion del mismo, como tambien el rango y velocidad de movimiento del personaje.
+		Tambien detectamos las colisiones del personaje con los distintos elementos dentro del juego, y la consecuencia de la misma. 
+		Recibimos como parametro el estado actual del juego y la lista de items dentro del juego. 
+		'''
 		updt_x = 0
 		updt_y = 0
 		animation_cooldown = 10
@@ -178,10 +189,16 @@ class Player():
 
 
 	def reset(self,x,y):
-		#para resetear el jugador despues del game over
+		'''
+		para resetear el jugador despues del game over
+		recibimos como parametro la ubicacion del personaje dentro del juego, para volver a reubicarlo
+		'''
 		self.__init__(x,y)
 
 	def draw(self):
+		'''
+		Dibujamos al personaje dentro de la pantalla del juego
+		'''
 		screen.blit(self.walk,self.rect)
 		#pygame.draw.rect(screen,(255,255,255),self.rect,2)
 

@@ -8,7 +8,11 @@ screen = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
 
 class Level():
 	def __init__(self, data):
-
+		'''
+		Se le asigna a cada item un valor a ser representado dentro del json, para asi poder ubicar correctamente los elementos dentro del mapa
+		Se recibe como parametro la data obtenida del json.
+		Se devuelve el nivel en cuestion dibujado y listo para ser aplicado en la pantalla del juego.
+		'''
 		self.lista_items = []
 		#cargar imagenes
 		imagen_tierra_limites = pygame.image.load("Recursos/tile/4.png")
@@ -55,6 +59,9 @@ class Level():
 		
 
 	def draw_items(self,screen):
+		'''
+		Dibuja los items en la pantalla, para poder verlos estos en su correcta ubicacion en la pantalla del juego.
+		'''
 		for item in self.lista_items:
 			screen.blit(item[0], item[1])
 			#pygame.draw.rect(screen, (255,255,255), item[1], 2)

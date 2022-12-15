@@ -1,7 +1,5 @@
 import sqlite3
 
-
-
 def crear_table():
 		with sqlite3.connect("ranking_jueguito.db") as conexion:
 			try:
@@ -22,7 +20,6 @@ def crear_table():
 				print("se creo la tablita")
 
 def add_puntuacion(nombre,vidas,score, time,lvl):
-	#with sqlite3.connect("ranking_jueguito.db") as conexion:
 		try:
 			sqlConnect = sqlite3.connect("ranking_jueguito.db")
 			cursor = sqlConnect.cursor()
@@ -33,10 +30,6 @@ def add_puntuacion(nombre,vidas,score, time,lvl):
 			sqlConnect.commit()
 			cursor.close()
 			print(recibir_info())
-			# conexion.execute('''insert into players(nombre,vidas,score,tiempo) values (?,?,?,?)''',(nombre,vidas,score,time))
-			# conexion.commit()
-			# print(nombre,vidas,score,time)
-			# print(retrieve_info())
 		except sqlite3.OperationalError as error:
 			print("Error ",error)
 
@@ -47,11 +40,5 @@ def recibir_info():
 		res = cur.execute(sql_select)
 		print("res",res.fetchall())
 		return cur.execute(sql_select).fetchall()
-		# cursor= conexion.execute('''SELECT * FROM players''')  
-		# conexion.commit      
-		# list_top_5 = []
-		# for fila in cursor:
-		#     list_top_5.append(fila)
-		#     return list_top_5
 
 

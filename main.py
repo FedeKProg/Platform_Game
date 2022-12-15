@@ -43,7 +43,7 @@ main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,ac
 form_opciones = FormOpciones(name="form_opciones",master_surface=screen,x=0,y=0,active=True)
 form_start_nivel = FormNivelStart(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=1)
 # form_start_nivel_2 = FormNivelStart2(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=2)
-# form_start_nivel_3 = FormNivelStart3(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=3)
+# form_start_nivel_3 = FormNivelStart3(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=3)R
 form_pausa = FormPausa(name="form_pausa",master_surface=screen,x=0,y=0,active=True)
 form_death = FormDeath(name="form_death",master_surface=screen,x=0,y=0,active=True)
 form_win = FormWin(name="form_win",master_surface=screen,x=0,y=0,active=True)

@@ -36,7 +36,16 @@ You can proceed on helping me on this project, by dowloading the files, and help
 As far as i can notice, the only bug, is to be able to make more accurate the hitbox and collitons of the player and items of the level, in order to have a more accorate collision. And also, the player movement can be improved.
 
 **LINK OF THE GAME PREVIEW**
-https://drive.google.com/file/d/1m5R8sM-bsZ7I73gjVGXRVizmT9PCV4gh/view?usp=sharing
+
+
+[![Alt text](https://img.youtube.com/vi/a96iYeXrrAc/0.jpg)](https://www.youtube.com/watch?v=a96iYeXrrAc)
+
+**LEVELS**!
+![nivel_1](https://user-images.githubusercontent.com/108838345/207979215-16401dbd-a748-4d12-b057-6a1b45e2c059.png)
+
+![Nivel_2](https://user-images.githubusercontent.com/108838345/207979251-d505234e-fc8c-4f62-a514-4a30dce35fc9.png)
+
+![Nivel_3](https://user-images.githubusercontent.com/108838345/207979267-3e776edc-265a-4d8c-8d0b-8b1209f3601e.png)
 
 **THIS PROJECT IS ENTIRELY MADE BY MYSELF, WITH THE HELP OF DIFFERENT DOCUMENTATION AND CLASS INFORMATION PROVIDED AT MY UNIVERSITY**
 

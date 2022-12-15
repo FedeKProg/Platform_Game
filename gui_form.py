@@ -1,5 +1,4 @@
 import pygame
-import sqlite3
 from pygame.locals import *
 from gui_widget import Widget
 from gui_boton import *
@@ -11,8 +10,6 @@ from Level_setup import *
 from interacciones import *
 from botones import *
 from sqlite import *
-
-sql = Sqlite()
 
 class Form():
 	'''
@@ -61,8 +58,9 @@ class FormMenu(Form):
 
 		self.start = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='START GAME',screen=master_surface,on_click=self.click_start,on_click_param="form_start_nivel",font_size=60)
 		self.option = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='SETTINGS',screen=master_surface,on_click=self.click_start,on_click_param="form_opciones",font_size=60)
-		self.seleccion_nivel = Button(x=ANCHO_PANTALLA/2,y=ALTO_PANTALLA//2+100,text='Seleccionar Nivel',screen=master_surface,on_click=self.click_seleccion_nivel,on_click_param="form_seleccion_nivel",font_size=60)
-		self.lista_widget = [self.start,self.option,self.seleccion_nivel]
+		self.puntajes = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+200,text='HIGHSCORES',screen=master_surface,on_click=self.click_puntajes,on_click_param="form_puntajes",font_size=60)
+		self.seleccion_nivel = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+100,text='SELECT LEVEL',screen=master_surface,on_click=self.click_seleccion_nivel,on_click_param="form_seleccion_nivel",font_size=60)
+		self.lista_widget = [self.start,self.option,self.puntajes,self.seleccion_nivel]
 		
 
 	def click_seleccion_nivel(self, parametro):
@@ -91,7 +89,10 @@ class FormMenu(Form):
 		'''
 		click_sound.play(0,450,0)
 		self.set_active(parametro)
-
+		
+	def click_puntajes(self, parametro):
+		self.set_active(parametro)
+		click_sound.play(0,450,0)
 
 	def update(self, lista_eventos):
 		'''
@@ -121,6 +122,7 @@ class FormNivelStart(Form):
 		grupo_monedas.empty()
 		grupo_puertas.empty()
 		grupo_trampas.empty()
+		grupo_balas.empty()
 		self.nivel = nivel
 		self.seteo = MapCreator(self.nivel)
 		self.level = Level(self.seteo.get_items())
@@ -159,12 +161,14 @@ class FormNivelStart(Form):
 		'''
 		self.game_over = 0 
 		self.score = 0
+		self.shoot = False
 		if self.game_over == 0:
 			grupo_enemigo.update()
+			#self.jugador.disparo()
 			self.jugador.update(self.game_over,self.level.lista_items)
 			#updatear score
-			if self.shoot_cooldown > 0:
-				self.shoot_cooldown -= 1
+			# if self.shoot:
+			# 	self.jugador.disparo()
 			if(self.nivel_timer > 0 ):
 				timer_sec = pygame.time.get_ticks()
 				if(timer_sec - self.last_timer > SEGUNDO):
@@ -180,29 +184,34 @@ class FormNivelStart(Form):
 				self.vidas -= 1
 				self.jugador.reset(50,670)
 				grupo_monedas.draw(screen)
+				grupo_enemigo.draw(screen)
 			if self.vidas == 0 or self.nivel_timer == 0:
-					self.game_over = -1
-					self.set_active("form_death")
-					self.vidas = 5
-					self.nivel_timer = self.seteo.get_timer_sec()
-				#self.reinicio()
+				self.game_over = -1
+				self.reinicio()
+				self.set_active("form_death")
+				self.vidas = 5
+				self.nivel_timer = self.seteo.get_timer_sec()
+			elif pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
+				self.puntos += 10
+				musica_moneda.play()
 			elif pygame.sprite.spritecollide(self.jugador,grupo_puertas,False):
 				self.game_over = 1
 				self.set_active("form_win")
 				self.nivel += 1
 				win_sound.play(0,4000,0)
+				#self.set_active("form_name")
 				#self.reinicio()
-			elif pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
-				musica_moneda.play()
-				self.puntos += 10
-			# for enemy in grupo_enemigo:
-			# 	if pygame.sprite.spritecollide(enemy, grupo_balas, False):
-			# 		if enemy.alive:
-			# 			self.kill()
-			elif pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
-				musica_moneda.play()
-				self.score += 10
-				escribir("SCORE:" + str(self.score),fuente_score,white,item_size-10,10)
+			for enemy in grupo_enemigo:
+				if pygame.sprite.spritecollide(enemy, grupo_balas, False):
+					enemy.kill()
+					self.puntos += 10
+					enemy_death_sound.play(0,4000,0)
+			for bala in grupo_balas:
+				pygame.sprite.spritecollide(bala,grupo_enemigo,False)
+			# elif pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
+			# 	musica_moneda.play()
+			# 	self.score += 10
+			# 	escribir("SCORE:" + str(self.score),fuente_score,white,item_size-10,10)
 		self.game_over = self.jugador.update(self.game_over, self.level.lista_items)
 		if self.game_over==-1:
 			self.jugador.reset(50,670)
@@ -224,6 +233,8 @@ class FormNivelStart(Form):
 
 
 		self.screen.blit(self.imagen_fondo,self.imagen_fondo.get_rect())
+	def reinicio(self):
+		self.__init__(name="form_start_nivel",master_surface=screen,x=0,y=0,active=True,nivel=self.nivel)
 
 	def draw(self):
 		'''
@@ -235,6 +246,7 @@ class FormNivelStart(Form):
 		grupo_monedas.draw(screen)
 		grupo_enemigo.draw(screen)
 		grupo_trampas.draw(screen)
+		#grupo_balas.draw(screen)
 		#self.enemy.draw()
 		if pygame.sprite.spritecollide(self.jugador,grupo_monedas,True):
 			musica_moneda.play()
@@ -382,6 +394,51 @@ class FormNivelStart_3(FormNivelStart):
 		escribir("SCORE:" + str(self.score),fuente_score,white,item_size-10,10)
 		self.jugador.draw()
 
+class FormPuntuaciones(Form):
+	'''
+	Se crean y se setean los botones y las entradas a ser mostradas en el menu highscore
+	Recibe como parametro la informacion del sql
+	Devuelve esta informacion ordenada y formateda.
+	'''
+	def __init__(self,name,master_surface,x,y,active,ranks_db)->None:
+		super().__init__(name,master_surface,x,y,active)
+
+		self.show_ranks = []
+		self.ranks_db=ranks_db
+
+		self.puntuaciones_txt = Textos(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-250,text="TOP 5 RANKING",screen=master_surface,font_size=50)
+		self.back_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+300,text="VOLVER AL MENU",screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form")
+
+		#if ranks_db != None :
+		for i in range(len(ranks_db)):
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2-700,y=ALTO_PANTALLA//2.5+i*25,text="{0}".format(i+1),screen=master_surface,font_size=18))
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2-380,y=ALTO_PANTALLA//2.5+i*25,text="NOMBRE: {0}".format(ranks_db[i][1]),screen=master_surface,font_size=25))
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2-150,y=ALTO_PANTALLA//2.5+i*25,text="VIDAS: {0}".format(ranks_db[i][2]),screen=master_surface,font_size=25))
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2+200,y=ALTO_PANTALLA//2.5+i*25,text="PUNTAJE: {0}".format(ranks_db[i][3]),screen=master_surface,font_size=25))
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2+400,y=ALTO_PANTALLA//2.5+i*25,text="TIEMPO: {0}".format(ranks_db[i][4]),screen=master_surface,font_size=25))
+			self.show_ranks.append(Textos(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2.5+i*25,text="NIVEL: {0}".format(ranks_db[i][5]),screen=master_surface,font_size=25))
+
+		print(self.show_ranks)
+				 
+		self.lista_widget = [self.puntuaciones_txt,self.back_btn]
+	
+	
+
+	def click_back(self,parametro):
+		self.set_active(parametro)
+		click_sound.play(0,450,0)
+
+	def update(self, lista_eventos):
+		for aux_boton in self.lista_widget:
+			aux_boton.update(lista_eventos)
+
+	def draw(self): 
+		super().draw()
+		for aux_boton in self.lista_widget:    
+			aux_boton.draw()
+		for ranks in self.show_ranks:
+			ranks.draw()
+
 class FormOpciones(Form):
 	'''
 	Se crean y setean los botones correspondientes al menu de opciones del juego.
@@ -502,9 +559,9 @@ class FormDeath(Form):
 		'''
 		self.music_on = Button(x=ANCHO_PANTALLA//2-80,y=ALTO_PANTALLA//2,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
 		self.music_off = Button(x=ANCHO_PANTALLA//2+80,y=ALTO_PANTALLA//2,text='OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.back_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-100,text='Volver al menu',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
-		self.perdiste_txt = Textos(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-200,text='You Lose',screen=master_surface,font_size=50)
-		self.retry_btn = Button(x=ANCHO_PANTALLA//2-15,y=ALTO_PANTALLA//2+100,text='Retry',screen=master_surface,on_click=self.click_retry,on_click_param="form_start_nivel",font_size=60)
+		self.back_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-100,text='BACK TO MENU',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
+		self.perdiste_txt = Textos(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-200,text='YOU LOSE :C',screen=master_surface,font_size=50)
+		self.retry_btn = Button(x=ANCHO_PANTALLA//2-15,y=ALTO_PANTALLA//2+100,text='TRY AGAIN',screen=master_surface,on_click=self.click_retry,on_click_param="form_start_nivel",font_size=60)
 																																							
 		self.lista_widget = [self.music_off,self.music_on,self.back_btn,self.retry_btn,self.perdiste_txt]
 
@@ -555,12 +612,13 @@ class FormWin(Form):
 		super().__init__(name,master_surface,x,y,active)
 		self.music_on = Button(x=ANCHO_PANTALLA//2-80,y=ALTO_PANTALLA//2,text='Music ON',screen=master_surface,on_click=self.click_music_on,font_size=40)
 		self.music_off = Button(x=ANCHO_PANTALLA//2+80,y=ALTO_PANTALLA//2,text='OFF',screen=master_surface,on_click=self.click_music_off,font_size=40)
-		self.back_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-200,text='Volver al menu',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
+		self.back_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-200,text='BACK TO MENU',screen=master_surface,on_click=self.click_back,on_click_param="main_menu_form",font_size=40)
+		self.continue_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2+200,text='NAME SELECTION',screen=master_surface,on_click=self.click_back,on_click_param="form_name",font_size=40)
 		#self.next_btn = Button(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-300,text='Siguiente nivel',screen=master_surface,on_click=self.click_next,on_click_param="form_start_nivel",font_size=40)
-		self.ganaste_txt = Textos(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-300,text='Ganaste',screen=master_surface,font_size=70)
+		self.ganaste_txt = Textos(x=ANCHO_PANTALLA//2-10,y=ALTO_PANTALLA//2-300,text='YOU WIN!',screen=master_surface,font_size=70)
 		
 																																					 
-		self.lista_widget = [self.music_off,self.music_on,self.back_btn,self.ganaste_txt,]
+		self.lista_widget = [self.music_off,self.music_on,self.back_btn,self.ganaste_txt,self.continue_btn]
 
 
 	def click_music_on(self, parametro):
@@ -613,10 +671,10 @@ class FormLvlSelect(Form):
 		Con este form se setean los botones correspondientes a la seleccion de niveles del juego.
 		'''
 		self.is_selected = False
-		self.lvl1_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-300,text='Nivel 1',screen=master_surface,on_click=self.seleccion_nivel_1,on_click_param="form_start_nivel",font_size=40)
-		self.lvl2_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='Nivel 2',screen=master_surface,on_click=self.seleccion_nivel_2,on_click_param="form_start_nivel",font_size=40)
-		self.lvl3_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='Nivel 3',screen=master_surface,on_click=self.seleccion_nivel_3,on_click_param="form_start_nivel",font_size=40)
-		self.back_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='Volver',screen=master_surface,on_click=self.volver,on_click_param="main_menu_form",font_size=40)
+		self.lvl1_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-300,text='NIVEL 1',screen=master_surface,on_click=self.seleccion_nivel_1,on_click_param="form_start_nivel",font_size=40)
+		self.lvl2_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-200,text='NIVEL 2',screen=master_surface,on_click=self.seleccion_nivel_2,on_click_param="form_start_nivel",font_size=40)
+		self.lvl3_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-100,text='NIVEL 3',screen=master_surface,on_click=self.seleccion_nivel_3,on_click_param="form_start_nivel",font_size=40)
+		self.back_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2,text='VOLVER',screen=master_surface,on_click=self.volver,on_click_param="main_menu_form",font_size=40)
 																																					
 		self.lista_widget = [self.lvl1_btn,self.lvl2_btn,self.back_btn,self.lvl3_btn]
 	
@@ -675,3 +733,38 @@ class FormLvlSelect(Form):
 		super().draw()
 		for aux_boton in self.lista_widget:    
 			aux_boton.draw()
+
+class FormInsertName(Form):
+	'''
+	Se setea el botos y se crea el campo de texto dentro del menu de ingreso de nombre de jugador
+	Recibe como parametro el nombre ingresado
+	Lo devuelve hacia la base de datos, para aplicarlo junto a la informacion del nivel realizado
+	'''
+	def __init__(self,name,master_surface,x,y,active)->None:
+		super().__init__(name,master_surface,x,y,active)
+
+		self.name = False
+
+		self.ingresar_nombre_txt = Textos(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-250,text="INGRESE SU NOMBRE",screen=master_surface,font_size=50)
+		self.text_box = TextBox(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+250,text=" ",screen=master_surface,font_size=30)
+		self.confirm_btn = Button(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2+300,text="CONFIRMAR NOMBRE",screen=master_surface,on_click=self.click_confirm,on_click_param="form_win")    
+		self.lista_widget = [self.ingresar_nombre_txt,self.confirm_btn]
+	
+	
+
+	def click_confirm(self,parametro):
+		self.name = True
+
+	def update(self, lista_eventos):
+		self.text_box.update(lista_eventos)
+		for aux_boton in self.lista_widget:
+			aux_boton.update(lista_eventos)
+
+	def draw(self): 
+		super().draw()
+		for aux_boton in self.lista_widget:    
+			aux_boton.draw()
+		self.text_box.draw()
+		self.writing_text = Textos(x=ANCHO_PANTALLA//2,y=ALTO_PANTALLA//2-20,text="{0}".format(self.text_box._writing.upper()),screen=self.master_surface,font_size=25)
+		self.writing_text.draw()
+

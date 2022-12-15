@@ -1,49 +1,57 @@
 import sqlite3
 
 
-class Sqlite():
-	def __init__(self):
-		with sqlite3.connect("players data/players_score.db") as conexion:
+
+def crear_table():
+		with sqlite3.connect("ranking_jueguito.db") as conexion:
 			try:
-				sentencia = ''' create  table jugadores
+				sentence = ''' create table players
 								(
-										id integer primary key autoincrement,
-										nivel interger,
-										vidas interger,
-										puntos interger,
-										tiempo interger
-								)
+									id integer primary key autoincrement,
+									nombre text,
+									vidas integer,
+									score integer,
+									tiempo integer,
+									lvl integer
+								) 
 							'''
-				conexion.execute(sentencia)
-				print("Se creo la tabla personajes")                       
+							
+				conexion.execute(sentence)
+				print("table")
 			except sqlite3.OperationalError:
-				print("La tabla personajes ya existe")  
-	def agregar_score(self,nivel,vida,score,tiempo):
-		with sqlite3.connect("players data/players_score.db") as conexion:
-			if self.modificar_score(nivel) != []:
-				try:
-					conexion.execute("UPDATE jugadores SET vidas=?,puntos=?,tiempo=? WHERE nivel=?"),(vida,score,tiempo,nivel)
-					conexion.commit()
-				except sqlite3.OperationalError as error:
-					print("ERROR: ", error)
-			else: 
-				try:
-					conexion.execute("insert into jugadores(nivel,vidas,puntos,tiempo) values (?,?,?,?)",(nivel,vida,score,tiempo))
-					conexion.commit
-				except sqlite3.OperationalError as error:
-					print("ERROR: ", error)
+				print("se creo la tablita")
 
-	def modificar_score(self,nivel):
-		nivel = nivel
-		with sqlite3.connect("players data/players_score.db") as conexion:
-			sentencia = "SELECT * FROM jugadores WHERE nivel=?"
-			cursor = conexion.execute(sentencia,(nivel))
-		return cursor.fetchall()
+def add_puntuacion(nombre,vidas,score, time,lvl):
+	#with sqlite3.connect("ranking_jueguito.db") as conexion:
+		try:
+			sqlConnect = sqlite3.connect("ranking_jueguito.db")
+			cursor = sqlConnect.cursor()
+			sql_insert_query = """INSERT INTO players
+			(nombre,vidas,score,tiempo,lvl) VALUES (?,?,?,?,?)"""
 
-	def select(self):
-		with sqlite3.connect("players data/players_score.db") as conexion:
-			cursor = conexion.execute("SELECT * FROM jugadores")
-			for fila in cursor:
-				print(fila)
+			cursor.execute(sql_insert_query,(nombre,vidas,score,time,lvl))
+			sqlConnect.commit()
+			cursor.close()
+			print(recibir_info())
+			# conexion.execute('''insert into players(nombre,vidas,score,tiempo) values (?,?,?,?)''',(nombre,vidas,score,time))
+			# conexion.commit()
+			# print(nombre,vidas,score,time)
+			# print(retrieve_info())
+		except sqlite3.OperationalError as error:
+			print("Error ",error)
+
+def recibir_info():
+	with sqlite3.connect("ranking_jueguito.db") as conexion:
+		sql_select = "SELECT * FROM players ORDER BY score DESC LIMIT 5"
+		cur = conexion.cursor()
+		res = cur.execute(sql_select)
+		print("res",res.fetchall())
+		return cur.execute(sql_select).fetchall()
+		# cursor= conexion.execute('''SELECT * FROM players''')  
+		# conexion.commit      
+		# list_top_5 = []
+		# for fila in cursor:
+		#     list_top_5.append(fila)
+		#     return list_top_5
 
 

@@ -50,20 +50,23 @@ class Balas(pygame.sprite.Sprite):
 	Se setea la imagen y su hitbox basado en esta. 
 	Recibe como parametro la ubicacion de la misma.
 	'''
-	def __init__(self, x, y, direccion):
+	def __init__(self, x, y, direction):
 		pygame.sprite.Sprite.__init__(self)
 		self.speed = 10
 		self.image = pygame.image.load("Recursos/icons/bullet.png")
 		self.rect = self.image.get_rect()
-		self.rect.center = (x,y)
-		self.direccion = direccion
-	
+		self.rect.center = (x, y)
+		self.direction = direction
+
 	def update(self):
 		#move bullet
 		self.rect.x += (self.direction * self.speed)
 		#check if bullet has gone off screen
-		if self.rect.right < 0 or self.rect.left > ANCHO_PANTALLA:
-			self.kill()
+		# if self.rect.right < 0 or self.rect.left > ANCHO_PANTALLA:
+		# 	self.kill()
+		# if pygame.sprite.spritecollide(grupo_enemigo, grupo_balas, False):
+		# 	self.kill()
+
 
 def escribir(texto,fuente,color,x,y):
 	'''

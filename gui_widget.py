@@ -14,4 +14,4 @@ class Widget:
         self.y = y
 
     def draw(self):
-        self.screen.blit(self.text_image,self.rect)
+        self.screen.blit(self.image,self.rect)

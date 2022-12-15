@@ -51,9 +51,9 @@ class Player():
 		# self.alto_attack = self.attack.get_height()
 		self.jump_speed = 0
 		self.jump = False
-		#self.shoot= False
-		self.shoot_cooldown = 0
-		self.direccion = 0
+		self.shoot= False
+		self.shoot_cooldown = 20
+		self.direccion = 1
 		self.on_platform = True
 
 	def update(self,game_over,lista_items):
@@ -66,7 +66,6 @@ class Player():
 		updt_x = 0
 		updt_y = 0
 		animation_cooldown = 10
-		attack_cooldown = 40
 		#acciones y movimientos del personaje
 		if game_over == 0:
 			key = pygame.key.get_pressed()
@@ -83,8 +82,10 @@ class Player():
 			# 	self.direccion_attack = 1
 			if key[pygame.K_s]:	
 				self.shoot = True
+				print("pium pium")
 			if key[pygame.K_s] == False:	
 				self.shoot = False
+				print("pium't")
 			if key[pygame.K_SPACE] and self.jump == False and self.on_platform==True:
 				#agrega musica
 				musica_salto.play()
@@ -105,7 +106,13 @@ class Player():
 			# 	if self.direccion == 1:
 			# 		self.attack = self.attack_r_list[self.index]
 			# 	if self.direccion == -1:
-			# 		self.attack = self.attack_l_list[self.index]				
+			# 		self.attack = self.attack_l_list[self.index]	
+			if self.shoot_cooldown > 0:
+				self.shoot_cooldown -= 1	
+			if self.shoot_cooldown == 0:
+				self.shoot_cooldown = 20
+				balas = Balas(self.rect.centerx, self.rect.centery+80, self.direccion)
+				grupo_balas.add(balas)		
 
 			#animacion caminata
 			if self.contador > animation_cooldown:
@@ -177,16 +184,12 @@ class Player():
 	# 		self.score +=10
 	# 	escribir("SCORE:" + str(score),fuente_score,white,item_size-10,10)
 
-	
-	def shoot(self):
+	def disparo(self):
 		if self.shoot_cooldown == 0:
 			self.shoot_cooldown = 20
-			bullet = Balas(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
-			grupo_balas.add(bullet)
-			#reduce ammo
-			self.ammo -= 1
-			#shot_fx.play()
-
+			balas = Balas(self.rect.centerx+500, self.rect.centery-100, self.direccion)
+			#balas = Balas(self.rect.centerx + (0.6 * self.rect.size[0] * self.direccion), self.rect.centery+80, self.direccion)
+			grupo_balas.add(balas)
 
 	def reset(self,x,y):
 		'''

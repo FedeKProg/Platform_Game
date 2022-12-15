@@ -36,7 +36,7 @@ clock = pygame.time.Clock()
 Seteo y llamado de las distintas clases para poder usadas dentro del bucle del juego. Se le aplican los datos necesarios, con los aspectos a ser usados dentro del juego.
 '''
 jugador = Player(50,670)
-crear_table()
+crear_tabla()
 rank_info_db = recibir_info()
 global_score = 0
 main_menu_form = FormMenu(name="main_menu_form",master_surface=screen,x=0,y=0,active=True)

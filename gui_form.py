@@ -161,7 +161,7 @@ class FormNivelStart(Form):
 		'''
 		self.game_over = 0 
 		self.score = 0
-		self.shoot = False
+		#self.shoot = False
 		if self.game_over == 0:
 			grupo_enemigo.update()
 			#self.jugador.disparo()
